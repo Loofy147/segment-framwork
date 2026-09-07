@@ -118,4 +118,11 @@ print("...")
 for row in log[-5:]:
     print(f"{row[0]:>5} {row[1]:>8.4f} {row[2]:>6.2f} {row[3]:>10.4f} {row[4]:>9.4f} {row[5]:>9.4f}")
 
-np.save('/home/claude/sheaf_probe/log.npy', np.array(log))
+import os
+try:
+    os.makedirs('/home/claude/sheaf_probe', exist_ok=True)
+    np.save('/home/claude/sheaf_probe/log.npy', np.array(log))
+except Exception as e:
+    print(f"Warning: Could not save to /home/claude/sheaf_probe/log.npy: {e}")
+    print("Saving to local directory log.npy instead.")
+    np.save('log.npy', np.array(log))
